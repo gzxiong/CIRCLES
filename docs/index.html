@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CIRCLES | Retrieving Counterfactuals Improves Visual In-Context Learning</title>
+    <meta
+      name="description"
+      content="Project page for CIRCLES: Retrieving Counterfactuals Improves Visual In-Context Learning (CVPR 2026)."
+    >
+    <meta
+      name="keywords"
+      content="CIRCLES, visual in-context learning, vision-language models, retrieval, counterfactual retrieval, composed image retrieval"
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css"
+    >
+    <link rel="stylesheet" href="assets/css/site.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                Retrieving Counterfactuals Improves Visual In-Context Learning
+              </h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">Guangzhi Xiong,</span>
+                <span class="author-block">Sanchit Sinha,</span>
+                <span class="author-block">Zhenghao He,</span>
+                <span class="author-block">Aidong Zhang</span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">Department of Computer Science, University of Virginia</span><br>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">CVPR 2026</span><br>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a
+                      href="https://arxiv.org/abs/2603.16737"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/gzxiong/CIRCLES"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="abstract">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h2 class="title is-3">Introduction</h2>
+            <div class="content has-text-justified">
+              <p>
+                Vision-language models (VLMs) have achieved impressive performance across a wide range of multimodal reasoning tasks, but they often struggle to disentangle fine-grained visual attributes and reason about underlying causal relationships. In-context learning (ICL) offers a promising avenue for VLMs to adapt to new tasks, but its effectiveness critically depends on the selection of demonstration examples. Existing retrieval-augmented approaches typically rely on passive similarity-based retrieval, which tends to select correlated but non-causal examples, amplifying spurious associations and limiting model robustness. 
+              </p>
+              <p>
+                We introduce <strong>CIRCLES</strong> (Composed Image Retrieval for Causal Learning Example Selection), a novel framework that actively constructs demonstration sets by retrieving counterfactual-style examples through targeted, attribute-guided composed image retrieval. By incorporating counterfactual-style examples, CIRCLES enables VLMs to implicitly reason about the causal relations between attributes and outcomes, moving beyond superficial correlations and fostering more robust and grounded reasoning.
+              </p>
+              <p>
+                Comprehensive experiments on four diverse datasets demonstrate that CIRCLES consistently outperforms existing methods across multiple architectures, especially on small-scale models, with pronounced gains under information scarcity. Furthermore, CIRCLES retrieves more diverse and causally informative examples, providing qualitative insights into how models leverage in-context demonstrations for improved reasoning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h3 class="title is-3">CIRCLES Framework</h3>
+            <div class="content has-text-justified">
+              <p>
+                CIRCLES combines two complementary sources of evidence. Standard image retrieval provides
+                <em>correlational understanding</em> by finding visually similar neighbors, while
+                attribute-guided composed retrieval provides <em>causal understanding</em> by changing the
+                most relevant attribute and retrieving counterfactual-style examples. These two sets of
+                demonstrations are then used together for retrieval-augmented in-context inference.
+              </p>
+              <p>
+                In practice, the method has three core steps: identify the key attribute, retrieve composed
+                counterfactual examples for that attribute, and combine them with standard neighbors in the
+                final context. This gives the model both high-similarity context and attribute-focused
+                counterfactual evidence. The pipeline below shows how these two retrieval streams are combined in the CIRCLES framework.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <a href="assets/figures/pipeline.svg" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/pipeline.svg"
+                alt="Overview of the CIRCLES framework combining standard image retrieval and attribute-guided composed image retrieval for answer prediction."
+                class="center figure-large"
+              >
+            </a>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered analysis-row">
+          <div class="column is-five-sixths">
+            <div class="content has-text-justified">
+              <p>
+                The illustration below directly shows the intuition: standard retrieval keeps finding lookalikes, while composed retrieval adds the contrasting examples that make the decision boundary clearer. In other words, standard retrieval preserves local visual context, while composed retrieval contributes the counterfactual evidence needed to highlight which attribute actually changes the answer.
+              </p>
+            </div>
+            <a href="assets/figures/illustration.svg" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/illustration.svg"
+                alt="Illustration showing how standard retrieval stays close to correlated neighbors while composed retrieval surfaces counterfactual examples that vary the key attribute."
+                class="center figure-narrow"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h3 class="title is-3">Main Results</h3>
+            <div class="content has-text-justified">
+              <p>
+                The main benchmark results below show that CIRCLES consistently outperforms zero-shot prompting,
+                random example selection, and prior retrieval-based baselines across CUB, Flowers, OK-VQA,
+                and VizWiz. 
+                <strong>
+                 The improvements are especially notable for smaller vision-language models, showing that better demonstrations can compensate for weaker internal knowledge.
+                </strong>
+                More importantly, the same retrieval recipe transfers across both classification and VQA,
+                suggesting that the benefit comes from better example construction rather than a
+                task-specific trick.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <a href="assets/figures/main_results.png" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/main_results.png"
+                alt="Benchmark table showing that CIRCLES improves over prior retrieval baselines across multiple models and datasets."
+                class="center figure-large"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h3 class="title is-3">Qualitative Analysis</h3>
+            <div class="content has-text-justified">
+              <p>
+                The Magnolia Warbler example below illustrates why CIRCLES helps. Standard retrieval returns lookalike neighbors that push the model toward the wrong species, while CIRCLES retrieves counterfactual examples that explicitly vary discriminative cues such as head markings and wing patches. This makes the decisive evidence much easier to infer from the context.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <a href="assets/figures/qualitative.svg" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/qualitative.svg"
+                alt="Qualitative comparison where CIRCLES retrieves counterfactual bird examples that highlight the key attribute changes needed for the correct prediction."
+                class="center figure-wide"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h3 class="title is-3">CIRCLES Under Information Scarcity</h3>
+            <div class="content has-text-justified">
+              <p>
+                CIRCLES is especially effective when the training pool becomes small. On the CUB scarcity
+                study shown in the figure below, the gap between CIRCLES and standard retrieval widens as the amount of available training data shrinks, showing that counterfactual examples are most valuable when relevant demonstrations are hardest to find.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <a href="assets/figures/scarcity_results.svg" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/scarcity_results.svg"
+                alt="Information scarcity results showing that the performance gap between CIRCLES and RICES grows as less training data is available."
+                class="center figure-wide"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-five-sixths">
+            <h3 class="title is-3">Ablation Studies and Analysis</h3>
+            <div class="content has-text-justified">
+              <p>
+                We further conduct ablation studies to understand the contribution of different components and design choices in CIRCLES. The analyses below explore how different implementations of composed image retrieval, the inclusion of question-question similarity, and retrieval budget decisions affect performance. These studies provide insights into why CIRCLES works and how to best configure it for different settings.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-variable is-6 analysis-row">
+          <div class="column is-6">
+            <div class="content has-text-centered">
+              <h4 class="title is-4">CIR Implementation</h4>
+              <p class="analysis-note">
+                Comparing two implementations of composed image retrieval on CUB, we find that the stronger CIR backend leads to better CIRCLES performance.
+              </p>
+              <a href="assets/figures/cir_comparison.png" target="_blank" rel="noopener">
+                <img
+                  src="assets/figures/cir_comparison.png"
+                  alt="Comparison of CIRCLES performance using CIReVL and OSrCIR implementations of composed image retrieval on CUB with Gemma3 backbones."
+                  class="center figure-narrow"
+                >
+              </a>
+            </div>
+          </div>
+
+          <div class="column is-6">
+            <div class="content has-text-centered">
+              <h4 class="title is-4">Question Similarity Ablation</h4>
+              <p class="analysis-note">
+                In CIRCLES, we augment the original CIR method with a question-question similarity component to make the retrieval aware of task similarity. We evaluate the impact of this proposed enhancement on OK-VQA and VizWiz, where questions are diverse. 
+                The figure below demonstrates the effectiveness of incorporating question-question similarity in CIRCLES, showing that it leads to improved performance on both datasets.
+              </p>
+              <a href="assets/figures/question-question_similarity.png" target="_blank" rel="noopener">
+                <img
+                  src="assets/figures/question-question_similarity.png"
+                  alt="Ablation table comparing CIRCLES on OK-VQA and VizWiz with and without the question-question similarity component."
+                  class="center figure-compact"
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered analysis-row">
+          <div class="column is-five-sixths">
+            <div class="content has-text-justified">
+              <h4 class="title is-4 has-text-centered">Retrieval Budget Analysis</h4>
+              <p>
+                Our retrieval-budget study on CUB shows how CIRCLES trades off the number of standard
+                retrieval examples, composed retrieval examples, and intervened attributes. 
+                The results show that increasing the number of composed retrieval examples (#CIR) consistently improves accuracy across all #IR configurations, highlighting the benefit of CIR for providing targeted and informative context. 
+                Under tight CIR budgets, spreading interventions across more attributes works better than focusing on a single attribute. As the composed-retrieval budget grows, the best strategy shifts toward concentrating more compositions on fewer attributes, moving from breadth to depth.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <a href="assets/figures/budget_analysis.png" target="_blank" rel="noopener">
+              <img
+                src="assets/figures/budget_analysis.png"
+                alt="Merged retrieval budget analysis showing how CIRCLES accuracy changes with the number of standard retrieval examples, composed retrieval examples, and intervened attributes."
+                class="center figure-budget"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <a class="icon-link" href="https://arxiv.org/abs/2603.16737" target="_blank" rel="noopener">
+            <i class="ai ai-arxiv"></i>
+          </a>
+          <a class="icon-link" href="https://github.com/gzxiong/CIRCLES" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://mathvista.github.io/">MathVista</a>, licensed under a <a rel="license"
+            href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
