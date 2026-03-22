@@ -9,11 +9,11 @@
 </p>
 
 <p align="center">
-  <a href="https://gzxiong.github.io/circles/">
-    <img src="https://img.shields.io/badge/Homepage-coming_soon-0f766e" alt="Homepage">
+  <a href="https://gzxiong.github.io/CIRCLES/">
+    <img src="https://img.shields.io/badge/Homepage-available-0f766e" alt="Homepage">
   </a>
-  <a href="https://arxiv.org/abs/XXXX.XXXXX">
-    <img src="https://img.shields.io/badge/arXiv-coming_soon-b31b1b.svg" alt="arXiv">
+  <a href="https://arxiv.org/abs/2603.16737">
+    <img src="https://img.shields.io/badge/arXiv-2603.16737-b31b1b.svg" alt="arXiv">
   </a>
 </p>
 
