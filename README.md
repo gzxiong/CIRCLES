@@ -17,14 +17,6 @@
   </a>
 </p>
 
-<!-- When the arXiv page is available, replace the line above with a badge or icon, e.g.
-<p align="center">
-  <a href="https://arxiv.org/abs/XXXX.XXXXX">
-    <img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg" alt="arXiv">
-  </a>
-</p>
--->
-
 ## Table of Contents
 
 - [Overview](#overview)
