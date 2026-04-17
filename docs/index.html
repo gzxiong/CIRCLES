@@ -95,6 +95,19 @@
                       <span>Code</span>
                     </a>
                   </span>
+                  <span class="link-block">
+                    <a
+                      href="https://cvpr.thecvf.com/media/PosterPDFs/CVPR%202026/39200.png?t=1776447255.363509"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <span class="icon">
+                        <p style="font-size:18px">🖼️</p>
+                      </span>
+                      <span>Poster</span>
+                    </a>
+                  </span>                  
                 </div>
               </div>
             </div>
@@ -149,13 +162,11 @@
 
         <div class="columns is-centered">
           <div class="column is-full has-text-centered">
-            <a href="assets/figures/pipeline.svg" target="_blank" rel="noopener">
               <img
                 src="assets/figures/pipeline.svg"
                 alt="Overview of the CIRCLES framework combining standard image retrieval and attribute-guided composed image retrieval for answer prediction."
                 class="center figure-large"
               >
-            </a>
           </div>
         </div>
 
@@ -166,13 +177,11 @@
                 The illustration below directly shows the intuition: standard retrieval keeps finding lookalikes, while composed retrieval adds the contrasting examples that make the decision boundary clearer. In other words, standard retrieval preserves local visual context, while composed retrieval contributes the counterfactual evidence needed to highlight which attribute actually changes the answer.
               </p>
             </div>
-            <a href="assets/figures/illustration.svg" target="_blank" rel="noopener">
               <img
                 src="assets/figures/illustration.svg"
                 alt="Illustration showing how standard retrieval stays close to correlated neighbors while composed retrieval surfaces counterfactual examples that vary the key attribute."
                 class="center figure-narrow"
               >
-            </a>
           </div>
         </div>
       </div>
@@ -201,13 +210,11 @@
 
         <div class="columns is-centered">
           <div class="column is-full has-text-centered">
-            <a href="assets/figures/main_results.png" target="_blank" rel="noopener">
               <img
                 src="assets/figures/main_results.png"
                 alt="Benchmark table showing that CIRCLES improves over prior retrieval baselines across multiple models and datasets."
                 class="center figure-large"
               >
-            </a>
           </div>
         </div>
       </div>
@@ -228,13 +235,11 @@
 
         <div class="columns is-centered">
           <div class="column is-full has-text-centered">
-            <a href="assets/figures/qualitative.svg" target="_blank" rel="noopener">
               <img
                 src="assets/figures/qualitative.svg"
                 alt="Qualitative comparison where CIRCLES retrieves counterfactual bird examples that highlight the key attribute changes needed for the correct prediction."
                 class="center figure-wide"
               >
-            </a>
           </div>
         </div>
       </div>
@@ -256,13 +261,11 @@
 
         <div class="columns is-centered">
           <div class="column is-full has-text-centered">
-            <a href="assets/figures/scarcity_results.svg" target="_blank" rel="noopener">
               <img
                 src="assets/figures/scarcity_results.svg"
                 alt="Information scarcity results showing that the performance gap between CIRCLES and RICES grows as less training data is available."
                 class="center figure-wide"
               >
-            </a>
           </div>
         </div>
       </div>
@@ -288,13 +291,11 @@
               <p class="analysis-note">
                 Comparing two implementations of composed image retrieval on CUB, we find that the stronger CIR backend leads to better CIRCLES performance.
               </p>
-              <a href="assets/figures/cir_comparison.png" target="_blank" rel="noopener">
                 <img
                   src="assets/figures/cir_comparison.png"
                   alt="Comparison of CIRCLES performance using CIReVL and OSrCIR implementations of composed image retrieval on CUB with Gemma3 backbones."
                   class="center figure-narrow"
                 >
-              </a>
             </div>
           </div>
 
@@ -305,13 +306,11 @@
                 In CIRCLES, we augment the original CIR method with a question-question similarity component to make the retrieval aware of task similarity. We evaluate the impact of this proposed enhancement on OK-VQA and VizWiz, where questions are diverse. 
                 The figure below demonstrates the effectiveness of incorporating question-question similarity in CIRCLES, showing that it leads to improved performance on both datasets.
               </p>
-              <a href="assets/figures/question-question_similarity.png" target="_blank" rel="noopener">
                 <img
                   src="assets/figures/question-question_similarity.png"
                   alt="Ablation table comparing CIRCLES on OK-VQA and VizWiz with and without the question-question similarity component."
                   class="center figure-compact"
                 >
-              </a>
             </div>
           </div>
         </div>
@@ -332,13 +331,11 @@
 
         <div class="columns is-centered">
           <div class="column is-full has-text-centered">
-            <a href="assets/figures/budget_analysis.png" target="_blank" rel="noopener">
               <img
                 src="assets/figures/budget_analysis.png"
                 alt="Merged retrieval budget analysis showing how CIRCLES accuracy changes with the number of standard retrieval examples, composed retrieval examples, and intervened attributes."
                 class="center figure-budget"
               >
-            </a>
           </div>
         </div>
       </div>
